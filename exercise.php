@@ -11,6 +11,19 @@ class Building
     public $size;
     public $owner;
     public $address;
+    public $floors;
+
+    public function __construct($size, $owner, $address)
+    {
+        $this->size = $size;
+        $this->owner = $owner;
+        $this->address = $address;
+    }
+
+    public function __destruct()
+    {
+        echo "DESTROYED" . $this->size . $this->owner . $this->address;
+    }
 
     public function getSize()
     {
@@ -31,6 +44,10 @@ class Building
     }
 }
 
+$buildingTest = new Building("35m2", "company", "C/Real,12");
+var_dump($buildingTest);
+echo "</br></br>";
+
 
 // One class that inherits the base class.
 // This class must add:
@@ -43,9 +60,9 @@ class Building
 
 class House extends Building
 {
-    public static $detached = true;
-    public $owner = "person";
+    public static $detached;
 
+    public $floors = 2;
 
     public static function greeting()
     {
@@ -58,6 +75,14 @@ class House extends Building
         echo "The owner of this house is a $this->owner";
     }
 }
+
+$houseTest = new House("52m2", "person", "C/Calle,21");
+
+echo "</br></br>";
+var_dump($houseTest);
+
+
+
 
 // One abstract class with at least:
 // 2 properties
@@ -95,6 +120,7 @@ class HotelApp implements BuildingApp
 
     public static $thumbnail;
     public static $map;
+
     public static function showMap()
     {
         echo "You can take a look at this map " . self::$map . " thanks to our " . self::APPNAME;
@@ -104,3 +130,10 @@ class HotelApp implements BuildingApp
         echo "This is our hotel " . self::$thumbnail;
     }
 }
+
+echo "</br></br>";
+$hotelApp = new HotelApp();
+$hotelApp->showMap();
+echo "</br>";
+$hotelApp->showThumbnail();
+echo "</br></br>";
